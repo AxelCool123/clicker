@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker Game</title>
+</head>
+<body>
+    <h1 id="counter"><%= counter %></h1>
+    <button id="increment-btn">Don't u dare!!!</button>
+
+    <script type="module">
+        import { Fireworks } from '../static/fireworks-js/dist/index.es.js';
+
+        const container = document.body;
+        const options = {
+            maxRockets: 50,
+            rocketSpawnInterval: 150,
+            numParticles: 100,
+            explosionMinHeight: 0.2,
+            explosionMaxHeight: 0.9,
+            explosionChance: 0.08
+        };
+
+        const fireworks = new Fireworks(container, options);
+        fireworks.start(); // Start with an idle fireworks instance
+
+        let ws = new WebSocket("ws://localhost:3002");
+
+        ws.onopen = function() {
+            console.log('WebSocket connection established');
+        };
+
+        ws.onmessage = function(message) {
+            document.querySelector("#counter").innerHTML = message.data;
+        };
+
+        document.querySelector("#increment-btn").onclick = function() {
+            console.log('Sending increment message to server...');
+            ws.send('increment');
+
+            fireworks.start(); // Start fireworks on button click
+            setTimeout(() => fireworks.stop(), 2000); // Stop fireworks after 2 seconds
+        };
+    </script>
+</body>
+</html>

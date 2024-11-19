@@ -1,0 +1,19 @@
+{
+  "name": "clicker",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "fireworks-js": "^2.10.8",
+    "fs": "^0.0.1-security",
+    "ws": "^8.18.0"
+  }
+}
